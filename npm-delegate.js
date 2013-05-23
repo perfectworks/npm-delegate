@@ -81,7 +81,7 @@ function forward(reqIn, registry, cb) {
   var reqOut = {
     hostname: registry.hostname
   , port: registry.port
-  , path: rebase(registry.path, reqIn.url)
+  , path: registry.path + reqIn.url
   , headers: reqIn.headers
   , method: reqIn.method
   , auth: registry.auth
@@ -114,20 +114,6 @@ function copyHeaders(resFrom, resTo) {
     resTo.setHeader(header, resFrom.headers[header])
   }
 }
-
-
-function rebase(pathBase, path) {
-    console.log(pathBase, path)
-
-    if (pathBase != '/registry') {
-      return path.replace('/registry','')
-    }
-
-    if (path.indexOf('/registry') != 0) {
-      return '/registry' + path;
-    }
-}
-
 
 function die(msg) {
   console.error(msg)
