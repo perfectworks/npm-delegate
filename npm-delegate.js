@@ -69,6 +69,7 @@ function delegate(req, resOut) {
       resOut.end()
     } else {
       console.log('proxying response from registry' + url.format(registry))
+      resOut.setHeader('x-registry', url.format(registry))
       pipeRes(resIn, resOut)
     }
   });
@@ -107,7 +108,6 @@ function forward(reqIn, registry, cb) {
 
 function pipeRes(resFrom, resTo) {
   copyHeaders(resFrom, resTo)
-  resTo.removeHeader('x-registry')
   resFrom.pipe(resTo)
 }
 
